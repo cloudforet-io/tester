@@ -41,12 +41,12 @@ class DomainRunner(ServiceRunner):
 
         self.set_meta(token)
 
-        self._list_provider()
+        self._list_provider(domain)
 
         return domain, token
 
-    def _list_provider(self):
-        params = {}
+    def _list_provider(self, domain):
+        params = {'domain_id': domain.domain_id}
         print("######### List Provider ###########")
         providers = self.identity.Provider.list(params, metadata=self.get_meta())
         print_json(providers)
