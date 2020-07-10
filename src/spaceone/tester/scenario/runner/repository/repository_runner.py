@@ -21,6 +21,7 @@ class RepositoryRunner(ServiceRunner):
 
     def register_remote_repositories(self, remote_repos, domain):
         for remote_repo in remote_repos:
+            remote_repo['domain_id'] = domain.domain_id
             repo = self._register_remote_repository(remote_repo, domain)
             print_json(repo)
 

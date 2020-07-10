@@ -152,11 +152,18 @@ class Scenario(object):
             # Local Repository
             repository_runner = RepositoryRunner(self.clients, update_mode=self.is_update_mode)
             local_repo = domain_scenario.get("local_repository", None)
-            repository_runner.register_local_repository(local_repo)
+            if local_repo:
+                local_repo['domain_id'] = domain.domain_id
+                repository_runner.register_local_repository(local_repo)
+            else:
+                print("Skip Register local repo")
 
             # Remote Repository
             remote_repos = domain_scenario.get("remote_repositories", [])
-            repository_runner.register_remote_repositories(remote_repos, domain)
+            if len(remote_repos) > 0:
+                repository_runner.register_remote_repositories(remote_repos, domain)
+            else:
+                print("Skip Register remote repo")
 
             # Service Account
             service_accounts = domain_scenario.get('service_accounts', {})
