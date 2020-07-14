@@ -214,7 +214,8 @@ class Scenario(object):
                 self.clients,
                 update_mode=self.is_update_mode,
                 secret_name2id=secret_name2id,
-                secret_group_name2id=secret_group_name2id
+                secret_group_name2id=secret_group_name2id,
+                project_name2id=project_name2id
             )
             collector_runner.create_or_update_collectors(collectors, domain)
 

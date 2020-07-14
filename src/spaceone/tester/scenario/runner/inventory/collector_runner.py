@@ -5,11 +5,17 @@ __all__ = ['CollectorRunner']
 
 class CollectorRunner(ServiceRunner):
 
-    def __init__(self, clients, update_mode=False, secret_name2id={}, secret_group_name2id={}):
+    def __init__(self, clients, update_mode=False,
+                    secret_name2id={},
+                    secret_group_name2id={},
+                    project_name2id={}
+                 ):
         self.set_clients(clients)
         self.update_mode = update_mode
         self.secret_name2id = secret_name2id
         self.secret_group_name2id = secret_group_name2id
+        self.project_name2id = project_name2id
+
         self.regist_collectors = []
 
     def create_or_update_collectors(self, collectors, domain):
@@ -76,6 +82,9 @@ class CollectorRunner(ServiceRunner):
         print("XXXXXXXXXXXXXXXXXXXX secret name 2 id XXXXXXXXXXXXXXXXX")
         print(self.secret_name2id)
 
+        # is_public
+        is_public = collector.get('is_public', True)
+
         # secret
         secret = plugin_info.get('secret', None)
         if secret:
@@ -89,11 +98,20 @@ class CollectorRunner(ServiceRunner):
 
         params = {
             'name': collector['name'],
+            'is_public': is_public,
             'plugin_info': plugin_info,
             'priority': collector.get('priority', 1),
             'domain_id': domain.domain_id,
             'tags': collector.get('tags', {})
         }
+
+        # project_id
+        project_name = collector.get('project_name', None)
+        if project_name:
+            # Map to project_name to project_id
+            project_id = self.project_name2id[project_name]
+            params.update({'project_id': project_id})
+
         print(params)
         collector_obj = self.inventory.Collector.create(params, metadata=self.get_meta())
         print("########### Create Collector ###############")
