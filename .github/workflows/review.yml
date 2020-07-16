@@ -7,7 +7,6 @@ on:
 jobs:
   review:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
 
@@ -22,6 +21,7 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: '3.8'
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -32,8 +32,7 @@ jobs:
         cd $LOCATION_SETUP_PY
         python setup.py sdist bdist_wheel
 
-    - name: Test
-      id: test
+    - name: Lint
       run: |
-        echo "Running test ... None"
+        echo "Lint ... None"
         # fail test or pass test
