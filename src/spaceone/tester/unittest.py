@@ -4,7 +4,7 @@ import pprint
 import traceback
 import unittest
 
-from spaceone.core import config
+from spaceone.core import utils
 from spaceone.core import pygrpc
 from google.protobuf.json_format import MessageToDict
 
@@ -54,7 +54,7 @@ class TestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         try:
-            cls.config = config.load_config(cls.config_uri)
+            cls.config = utils.load_yaml_from_file(cls.config_uri).get('GLOBAL', {})
             endpoints = cls.config.get('ENDPOINTS', {})
             # version = 'v1'
             version = _guess_version(endpoints)
