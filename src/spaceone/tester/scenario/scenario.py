@@ -133,6 +133,8 @@ class Scenario(object):
                 #self._update_supervisor_token(consul, api_key['supervisor'])
                 for k, token in api_keys.items():
                     self._update_token(consul, k, token)
+                # Update domain_id
+                self._update_domain_at_consul(consul, 'domain_id', domain.domain_id)
 
             # ### Projects ###
             # Create or Update - Project Group
@@ -248,6 +250,10 @@ class Scenario(object):
     @classmethod
     def _update_token(cls, consul, key, token):
         cls._add_token(consul['host'], os.path.join(consul['env'], key), 'TOKEN', token)
+
+    @classmethod
+    def _update_domain_at_consul(cls, consul, key, value):
+        cls._add_token(consul['host'], consul['env'], 'domain_id', value)
 
     @classmethod
     def _add_token(cls, endpoint, directory, key, value):
