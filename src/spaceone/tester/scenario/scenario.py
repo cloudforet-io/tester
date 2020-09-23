@@ -18,6 +18,7 @@ from spaceone.tester.scenario.runner.secret.secret_runner import SecretRunner
 from spaceone.tester.scenario.runner.secret.secret_group_runner import SecretGroupRunner
 from spaceone.tester.scenario.runner.monitoring.datasource_runner import DataSourceRunner
 from spaceone.tester.scenario.runner.statistics.schedule_runner import ScheduleRunner
+from spaceone.tester.scenario.runner.statistics.schedule_runner import ScheduleRunner as PowerScheduleRunner
 
 __ALL__ = ['Scenario']
 
@@ -239,7 +240,16 @@ class Scenario(object):
                 self.clients,
                 update_mode=self.is_update_mode
             )
-            schedule_name2id = schedule_runer.add_or_update_schedules(schedules, domain)
+            power_schedule_name2id = schedule_runer.add_or_update_schedules(schedules, domain)
+
+            # power_scheduler.Schedule
+            schedules = domain_scenario.get("power_scheduler.Schedule", [])
+            schedule_runer = PowerScheduleRunner(
+                self.clients,
+                update_mode=self.is_update_mode,
+                project_name2id = project_name2id
+            )
+            power_schedule_name2id = schedule_runer.add_or_update_schedules(schedules, domain)
 
         return domain
 
