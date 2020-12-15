@@ -10,6 +10,7 @@ from spaceone.tester.scenario.runner.identity.domain_runner import DomainRunner
 from spaceone.tester.scenario.runner.identity.project_runner import ProjectRunner
 from spaceone.tester.scenario.runner.identity.user_runner import UserRunner
 from spaceone.tester.scenario.runner.identity.service_account_runner import ServiceAccountRunner
+from spaceone.tester.scenario.runner.inventory.resource_group_runner import ResourceGroupRunner
 from spaceone.tester.scenario.runner.inventory.collector_runner import CollectorRunner
 from spaceone.tester.scenario.runner.inventory.region_zone_pool_runner import RegionZonePoolRunner
 from spaceone.tester.scenario.runner.repository.repository_runner import RepositoryRunner
@@ -211,7 +212,17 @@ class Scenario(object):
             )
             secret_group_name2id = secret_group_runner.create_or_update_secret_group(secret_group, domain)
 
-            # Collector
+            # inventory
+            # inventory.ResourceGroup
+            resource_group = domain_scenario.get("inventory.ResourceGroup", [])
+            resource_group_runner = ResourceGroupRunner(
+                self.clients,
+                update_mode=self.is_update_mode,
+                project_name2id=project_name2id
+            )
+            resource_group_name2id = resource_group_runner.create_or_update_resource_group(resource_group, domain)
+
+            # inventory.Collector
             collectors = domain_scenario.get("collectors", [])
             collector_runner = CollectorRunner(
                 self.clients,
