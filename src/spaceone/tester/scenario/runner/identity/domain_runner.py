@@ -27,7 +27,7 @@ class DomainRunner(ServiceRunner):
             domain = self._find_domain(domain_info)
             token = domain_info.get('token')
             if domain and token is None:
-                domainOwner = domain_scenario.get('domainOwner', {'owner_id': 'admin', 'password': 'admin'})
+                domainOwner = domain_scenario.get('domainOwner', {'owner_id': 'admin', 'password': 'admin1234567890'})
                 token = self._get_domain_owner_token(domain, domainOwner['owner_id'], domainOwner['password'])
 
         if domain is None:
@@ -83,7 +83,7 @@ class DomainRunner(ServiceRunner):
         print(f'############ DOMAIN NOT FOUND ############')
         return None
 
-    def _create_domain(self, param2={}, domainOwner={'owner_id':'admin', 'password':'admin'}):
+    def _create_domain(self, param2={}, domainOwner={'owner_id':'admin', 'password':'admin1234567890'}):
         """ Create Domain
         1) Create Domain
         2) Create Domain Owner
@@ -130,9 +130,8 @@ class DomainRunner(ServiceRunner):
             'owner_id': owner_id,
             'password': owner_pw,
             'name': 'Domain Admin',
-            'timezone': 'utc+9',
+            'timezone': 'Asia/Seoul',
             'email': 'admin' + random_string()[0:5] + '@mz.co.kr',
-            'mobile': '+821012341234',
             'domain_id': domain.domain_id
         }
         param.update(domainOwner)
@@ -156,9 +155,9 @@ class DomainRunner(ServiceRunner):
 
     def _get_domain_owner_token(self, domain, owner_id='admin', owner_pw='admin'):
         token_param = {
+            'user_id': owner_id,
+            'user_type': 'DOMAIN_OWNER',
             'credentials': {
-                'user_type': 'DOMAIN_OWNER',
-                'user_id': owner_id,
                 'password': owner_pw
             },
             'domain_id': domain.domain_id
