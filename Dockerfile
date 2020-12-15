@@ -7,8 +7,8 @@ ENV SRC_DIR /tmp/src
 RUN apt-get update && apt install -y vim
 #COPY pkg/*.txt ${PKG_DIR}/
 RUN pip install --upgrade pip && \
-    pip install --upgrade spaceone-api&& \
-    pip install --upgrade spaceone-core
+    pip install --upgrade spaceone-api --pre && \
+    pip install --upgrade spaceone-core --pre
 
 COPY src ${SRC_DIR}
 

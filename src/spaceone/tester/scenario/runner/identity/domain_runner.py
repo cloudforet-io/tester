@@ -100,7 +100,7 @@ class DomainRunner(ServiceRunner):
         """
         param = {
             'name': random_string(),
-            'tags': {'company': 'MEGAZONE CLOUD'},
+            'tags': [{'key':'company', 'value': 'MEGAZONE CLOUD'}],
             'config': {
                 'icon': 'https://assets-console-spaceone-stg.s3.ap-northeast-2.amazonaws.com/mzc.jpg'
             }

@@ -57,7 +57,7 @@ class CollectorRunner(ServiceRunner):
             'priority': collector.get('priority', 1),
             'domain_id': collector_obj.domain_id,
             'collector_id': collector_obj.collector_id,
-            'tags': collector.get('tags', {})
+            'tags': collector.get('tags', [])
         }
         collector_obj = self.inventory.Collector.update(params, metadata=self.get_meta())
         print("########### Update Collector ###############")
@@ -102,7 +102,7 @@ class CollectorRunner(ServiceRunner):
             'plugin_info': plugin_info,
             'priority': collector.get('priority', 1),
             'domain_id': domain.domain_id,
-            'tags': collector.get('tags', {})
+            'tags': collector.get('tags', [])
         }
 
         # project_id

@@ -94,9 +94,8 @@ def _prepare_user_data(scenario_user):
         'password': user_id,
         'name': 'Steven' + random_string()[0:5],
         'language': language.__str__(),
-        'timezone': 'Asia/Seoul', 'tags': {'aa': 'bb'},
-        'email': 'Steven' + random_string()[0:5] + '@mz.co.kr',
-        'mobile': '+821026671234'
+        'timezone': 'Asia/Seoul', 'tags': [{'key':'aa', 'value': 'bb'}],
+        'email': 'Steven' + random_string()[0:5] + '@mz.co.kr'
     }
     # Overwrite param, if needed
     default_user.update(scenario_user)

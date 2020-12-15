@@ -1,4 +1,4 @@
-## SpaceONE Scenario Test Framework
+# SpaceONE Scenario Test Framework
 
 To run scenario:
 
@@ -7,3 +7,22 @@ To run scenario:
 Example:
 
 `spaceone test -d ./test/integration/domain`
+
+# Sample
+
+## inventory.ResourceGroup
+
+~~~python
+"inventory.ResourceGroup": [
+	{"name": "my t3.small servers at ap-northeast-2c",
+	 "resources": [{
+	 		"resource_type": "inventory.Server",
+			"filter": [
+				{"k": "data.compute.instance_type", "v": "t3.small", "o": "eq"},
+				{"k": "data.compute.az", "v": "ap-northeast-2c", "o": "eq"}
+				]
+			}
+		]
+	}
+]
+~~~
