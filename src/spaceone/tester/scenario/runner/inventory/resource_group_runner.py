@@ -14,7 +14,7 @@ class ResourceGroupRunner(ServiceRunner):
         self.resource_group_list = []
         self.resource_group_name2id = {}
 
-    def create_or_udpate_resource_group(self, resource_groups, domain):
+    def create_or_update_resource_group(self, resource_groups, domain):
         for resource_group in resource_groups:
             resource_group_obj = None
             if self.update_mode:
