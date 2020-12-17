@@ -2,7 +2,6 @@
 import random
 
 from spaceone.core.utils import random_string
-from langcodes import Language
 
 from spaceone.tester.scenario.runner.runner import ServiceRunner, print_json
 
@@ -86,14 +85,13 @@ class UserRunner(ServiceRunner):
 
 def _prepare_user_data(scenario_user):
     lang_code = random.choice(['ko', 'en'])
-    language = Language.get(lang_code)
     user_id = random_string()[0:10]
 
     default_user = {
         'user_id': user_id,
         'password': user_id,
         'name': 'Steven' + random_string()[0:5],
-        'language': language.__str__(),
+        'language': lang_code,
         'timezone': 'Asia/Seoul', 'tags': [{'key':'aa', 'value': 'bb'}],
         'email': 'Steven' + random_string()[0:5] + '@mz.co.kr'
     }
