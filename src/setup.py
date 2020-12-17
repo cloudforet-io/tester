@@ -33,8 +33,7 @@ setup(
     install_requires=[
         "spaceone-core",
         "spaceone-api",
-        "python-consul",
-        "langcodes"
+        "python-consul"
     ],
     zip_safe=False
 )

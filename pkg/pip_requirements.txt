@@ -1,0 +1,6 @@
+mongoengine
+bcrypt==3.1.6
+redis
+jinja2
+fakeredis
+mongomock
