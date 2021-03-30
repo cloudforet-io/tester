@@ -8,6 +8,7 @@ from spaceone.core.utils import deep_merge
 from spaceone.tester.scenario.runner.identity.api_key_runner import APIKeyRunner
 from spaceone.tester.scenario.runner.identity.domain_runner import DomainRunner
 from spaceone.tester.scenario.runner.identity.project_runner import ProjectRunner
+from spaceone.tester.scenario.runner.identity.role_runner import RoleRunner
 from spaceone.tester.scenario.runner.identity.user_runner import UserRunner
 from spaceone.tester.scenario.runner.identity.service_account_runner import ServiceAccountRunner
 from spaceone.tester.scenario.runner.inventory.resource_group_runner import ResourceGroupRunner
@@ -19,7 +20,7 @@ from spaceone.tester.scenario.runner.secret.secret_runner import SecretRunner
 from spaceone.tester.scenario.runner.secret.secret_group_runner import SecretGroupRunner
 from spaceone.tester.scenario.runner.monitoring.datasource_runner import DataSourceRunner
 from spaceone.tester.scenario.runner.statistics.schedule_runner import ScheduleRunner
-from spaceone.tester.scenario.runner.statistics.schedule_runner import ScheduleRunner as PowerScheduleRunner
+from spaceone.tester.scenario.runner.power_scheduler.schedule_runner import ScheduleRunner as PowerScheduleRunner
 
 __ALL__ = ['Scenario']
 
@@ -120,6 +121,11 @@ class Scenario(object):
             #    self._update_supervisor_token(consul, token)
             if token:
                 self.set_meta(token)
+
+            # Role
+            scenario_roles = domain_scenario.get('roles', [])
+            role_runner = RoleRunner(self.clients, update_mode=self.is_update_mode)
+            role_name2id = role_runner.create_or_update_role(scenario_roles, domain)
 
             # Create or Update - Users
             scenario_users = domain_scenario.get('users', [])
