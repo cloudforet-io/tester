@@ -9,6 +9,7 @@ from spaceone.tester.scenario.runner.identity.api_key_runner import APIKeyRunner
 from spaceone.tester.scenario.runner.identity.domain_runner import DomainRunner
 from spaceone.tester.scenario.runner.identity.project_runner import ProjectRunner
 from spaceone.tester.scenario.runner.identity.role_runner import RoleRunner
+from spaceone.tester.scenario.runner.identity.role_binding_runner import RoleBindingRunner
 from spaceone.tester.scenario.runner.identity.user_runner import UserRunner
 from spaceone.tester.scenario.runner.identity.service_account_runner import ServiceAccountRunner
 from spaceone.tester.scenario.runner.inventory.resource_group_runner import ResourceGroupRunner
@@ -145,6 +146,7 @@ class Scenario(object):
                 self._update_domain_at_consul(consul, 'domain_id', domain.domain_id)
 
             # ### Projects ###
+            print("Projects")
             # Create or Update - Project Group
             project_groups = domain_scenario.get('project_group', {})
             project_runner = ProjectRunner(self.clients, update_mode=self.is_update_mode)
@@ -157,6 +159,15 @@ class Scenario(object):
             # Project member mapping
             pm_param = domain_scenario.get('project_member', {})
             project_runner.map_members_into_projects(pm_param, domain)
+
+            # Role Binding mapping
+            print("Role Binding")
+            scenario_role_binding_user = domain_scenario.get('role_binding_user', {})
+            role_binding_user_runner = RoleBindingRunner(self.clients,
+                                                update_mode=self.is_update_mode,
+                                                role_name2id=role_name2id)
+            role_name2id = role_binding_user_runner.create_or_update_role_bindings(scenario_role_binding_user, domain)
+
 
             # ### Repository ###
             # Local Repository
