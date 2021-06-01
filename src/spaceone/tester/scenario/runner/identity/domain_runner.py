@@ -100,7 +100,7 @@ class DomainRunner(ServiceRunner):
         """
         param = {
             'name': random_string(),
-            'tags': [{'key':'company', 'value': 'MEGAZONE CLOUD'}],
+            'tags': {'company': 'MEGAZONE CLOUD', 'Environment': 'EXP'},
             'config': {
                 'icon': 'https://assets-console-spaceone-stg.s3.ap-northeast-2.amazonaws.com/mzc.jpg'
             }
@@ -132,7 +132,7 @@ class DomainRunner(ServiceRunner):
             'password': owner_pw,
             'name': 'Domain Admin',
             'timezone': 'Asia/Seoul',
-            'email': 'admin' + random_string()[0:5] + '@mz.co.kr',
+            'email': 'admin' + random_string()[0:5] + '@spaceone.org',
             'domain_id': domain.domain_id
         }
         param.update(domainOwner)
