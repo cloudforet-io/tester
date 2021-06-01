@@ -111,16 +111,17 @@ class DomainRunner(ServiceRunner):
         print_json(domain)
         self.append_terminator(self.identity.Domain.delete, {'domain_id': domain.domain_id})
 
-        if param2.get('plugin_info'):
-            print("########## Update Domain Plugin ##########")
-            update_param = {
-                'domain_id': domain.domain_id,
-                'plugin_info': param2.get('plugin_info')
-            }
-            print(update_param)
-            domain = self.identity.Domain.update(update_param)
-            print_json(domain)
-
+        # This will cause auth failure
+#        if param2.get('plugin_info'):
+#            print("########## Update Domain Plugin ##########")
+#            update_param = {
+#                'domain_id': domain.domain_id,
+#                'plugin_info': param2.get('plugin_info')
+#            }
+#            print(update_param)
+#            domain = self.identity.Domain.update(update_param)
+#            print_json(domain)
+#
 
         print("########## Create Domain Owner ##########")
         owner_id = domainOwner['owner_id']
