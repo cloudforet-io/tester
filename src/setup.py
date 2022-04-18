@@ -21,7 +21,7 @@ with open('VERSION', 'r') as f:
     f.close()
 
 setup(
-    name='spaceone-tester',
+    name='cloudforet-tester',
     version=VERSION,
     description='SpaceONE test framework',
     long_description='',
