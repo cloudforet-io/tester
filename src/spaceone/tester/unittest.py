@@ -18,6 +18,7 @@ def to_json(msg):
 
 
 def print_json(msg):
+    print("PoC")
     if msg:
         pprint.pprint(to_json(msg))
         print("")
